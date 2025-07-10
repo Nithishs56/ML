@@ -1,0 +1,35 @@
+data = [
+    ['Big', 'Red', 'Circle', 'No'],
+    ['Small', 'Red', 'Triangle', 'No'],
+    ['Small', 'Red', 'Circle', 'Yes'],
+    ['Big', 'Blue', 'Circle', 'No'],
+    ['Small', 'Blue', 'Circle', 'Yes']
+]
+
+def candidate_elimination(data):
+    S = ['ϕ'] * 3
+    G = [['?' for _ in range(3)]]
+
+    for row in data:
+        x, y = row[:-1], row[-1]
+        if y == 'Yes':
+            for i in range(3):
+                if S[i] == 'ϕ':
+                    S[i] = x[i]
+                elif S[i] != x[i]:
+                    S[i] = '?'
+        elif y == 'No':
+            G_temp = []
+            for g in G:
+                for i in range(3):
+                    if g[i] == '?':
+                        if S[i] != '?':
+                            g1 = g.copy()
+                            g1[i] = S[i]
+                            G_temp.append(g1)
+            G = G_temp
+    return S, G
+
+S, G = candidate_elimination(data)
+print("Specific Hypothesis:", S)
+print("General Hypotheses:", G)
