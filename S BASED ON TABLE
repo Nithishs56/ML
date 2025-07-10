@@ -1,0 +1,22 @@
+# Dataset as per question
+examples = [
+    ['Japan', 'Honda', 'Blue', 'Economy', 1980, 'Positive'],
+    ['Japan', 'Honda', 'Green', 'Sports', 1970, 'Negative'],
+    ['Japan', 'Toyota', 'Blue', 'Economy', 1990, 'Positive'],
+    ['Japan', 'Toyota', 'Red', 'Economy', 1980, 'Negative'],
+    ['USA', 'Chrysler', 'White', 'Economy', 1980, 'Positive'],
+    ['Japan', 'Honda', 'Blue', 'Economy', 1980, 'Positive']
+]
+
+def find_s(data):
+    hypothesis = ['0'] * (len(data[0]) - 1)
+    for row in data:
+        if row[-1] == 'Positive':
+            for i in range(len(hypothesis)):
+                if hypothesis[i] == '0':
+                    hypothesis[i] = row[i]
+                elif hypothesis[i] != row[i]:
+                    hypothesis[i] = '?'
+    return hypothesis
+
+print("Most Specific Hypothesis:", find_s(examples))
