@@ -1,0 +1,24 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+import time
+
+iris = load_iris()
+X, y = iris.data, iris.target
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+models = {
+    "Decision Tree": DecisionTreeClassifier(),
+    "Logistic Regression": LogisticRegression(max_iter=200),
+    "KNN": KNeighborsClassifier()
+}
+
+for name, model in models.items():
+    start = time.time()
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    end = time.time()
+    print(f"{name} -> Accuracy: {accuracy_score(y_test, y_pred):.2f}, Time: {end - start:.4f} sec")
