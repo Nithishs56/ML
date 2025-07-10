@@ -1,0 +1,12 @@
+import numpy as np
+from sklearn.mixture import GaussianMixture
+
+# Sample data
+X = np.array([[1], [2], [3], [8], [9], [10]])
+
+# Apply EM via Gaussian Mixture
+gmm = GaussianMixture(n_components=2)
+gmm.fit(X)
+labels = gmm.predict(X)
+
+print("Cluster Labels:", labels)
